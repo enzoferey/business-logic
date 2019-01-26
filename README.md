@@ -12,6 +12,6 @@ My intention with this repository is to provide decoupled, clean and well tested
 
 ### How it works
 
-The [`src`](./src) folder contains a set of different subfolders, one for each module. Each of them is self contained in its repository and has everything it needs to work.
+The [`modules`](./modules) folder contains a set of different subfolders, one for each module. Each of them is self contained in its repository and has everything it needs to work.
 
 Being the idea to provide out-of-the-box business logic working for every JavaScript project, the modules are written in TypeScript. You can find a JavaScript version of them in the [`dist`](./dist) folder. Be aware that they are not transpiled to vanilla JavaScript, you will still need to run `babel` on them.
