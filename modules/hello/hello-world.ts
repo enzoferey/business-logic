@@ -1,5 +1,5 @@
-function helloWorld(name: String) {
-  console.log("Hello world", name);
+function helloWorld(name: string) {
+  return `Hello world ${name}`;
 }
 
-helloWorld("enzo");
+export default helloWorld;
