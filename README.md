@@ -1,5 +1,7 @@
 # business-logic
 
+[![Build Status](https://travis-ci.org/enzoferey/business-logic.svg?branch=master)](https://travis-ci.org/enzoferey/business-logic)
+
 Decoupled, clean and well tested business logic.
 
 ### Why
