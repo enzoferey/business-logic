@@ -7,9 +7,9 @@ export function addToCart(items, item) {
 
   if (itemIndex >= 0) {
     // Increment quantity
-    const cart = [...items];
-    cart[itemIndex].quantity += item.quantity;
-    return cart;
+    const currentQuantity = items[itemIndex].quantity;
+    const targetQuantity = currentQuantity + item.quantity;
+    return replaceQuantityInCart(items, itemIndex, targetQuantity);
   } else {
     return addNewItemToCart(items, item);
   }
@@ -18,30 +18,38 @@ export function getItemIndexById(items, id) {
   return items.findIndex(item => item.id === id);
 }
 export function addNewItemToCart(items, item) {
-  const {
-    id,
-    price,
-    quantity,
-    ...data
-  } = item;
-  const cartItem = {
-    id,
-    price,
-    quantity,
-    data
-  };
-  return [...items, cartItem];
-}
-export function removeFromCart(items, item, quantity) {
-  if (quantity > 0) {
-    const itemIndex = getItemIndexById(items, item.id); // Decrement quantity
-
-    const cart = [...items];
-    cart[itemIndex].quantity -= quantity;
-    return cart;
+  if (item.quantity <= 0) {
+    return items;
   } else {
+    const itemIndex = getItemIndexById(items, item.id);
+
+    if (itemIndex >= 0) {
+      return addToCart(items, item);
+    }
+  }
+
+  return [...items, item];
+}
+export function removeFromCart(items, item) {
+  if (item.quantity <= 0) {
+    return items;
+  }
+
+  const itemIndex = getItemIndexById(items, item.id);
+
+  if (itemIndex < 0) {
+    return items;
+  } // Decrement quantity
+
+
+  const currentQuantity = items[itemIndex].quantity;
+  const targetQuantity = currentQuantity - item.quantity;
+
+  if (targetQuantity <= 0) {
     return fullyRemoveItemFromCart(items, item.id);
   }
+
+  return replaceQuantityInCart(items, itemIndex, targetQuantity);
 }
 export function fullyRemoveItemFromCart(items, id) {
   return items.filter(item => item.id !== id);
@@ -54,13 +62,20 @@ export function setQuantityInCart(items, id, quantity) {
   }
 
   const itemIndex = getItemIndexById(items, id);
+  return replaceQuantityInCart(items, itemIndex, quantity);
+}
+export function replaceQuantityInCart(items, index, quantity) {
+  const currentItem = items[index];
+  const newItem = { ...currentItem,
+    quantity
+  };
   const cart = [...items];
-  cart[itemIndex].quantity = quantity;
+  cart[index] = newItem;
   return cart;
 }
-export function getTotalPrice(items) {
+export function getTotalPriceCart(items) {
   return items.reduce((total, item) => total + item.price * item.quantity, 0);
 }
-export function getTotalNumberItems(items) {
+export function getTotalNumberItemsCart(items) {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
