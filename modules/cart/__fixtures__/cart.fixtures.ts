@@ -13,7 +13,7 @@ export function getCartItem({
     id,
     price: Math.random() * 100,
     quantity: Math.floor(Math.random() * 100),
-    data: Object.freeze({ name: "My product" }),
+    data: null,
     ...propsToOverride,
   });
 }

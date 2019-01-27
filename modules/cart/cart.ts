@@ -2,7 +2,7 @@ export interface IProduct {
   id: number;
   price: number;
   quantity: number;
-  data: object;
+  data?: object | null;
 }
 
 export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
