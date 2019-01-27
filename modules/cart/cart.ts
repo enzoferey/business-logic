@@ -49,6 +49,10 @@ export function removeFromCart(items: IProduct[], item: IProduct) {
 
   const itemIndex = getItemIndexById(items, item.id);
 
+  if (itemIndex < 0) {
+    return items;
+  }
+
   // Decrement quantity
   const currentQuantity = items[itemIndex].quantity;
   const targetQuantity = currentQuantity - item.quantity;

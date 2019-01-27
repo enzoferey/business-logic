@@ -103,6 +103,17 @@ describe("removeFromCart", () => {
 
     expect(nextCart).toEqual(cart);
   });
+  it("should do nothing if item does not already exist", () => {
+    const cartItem1 = getCartItem({ id: 1 });
+    const cartItem2 = getCartItem({ id: 2 });
+    const cart = [cartItem1, cartItem2];
+
+    const newItem = getCartItem({ id: 3, quantity: 10 });
+
+    const nextCart = removeFromCart(cart, newItem);
+
+    expect(nextCart).toEqual(cart);
+  });
 });
 
 describe("setQuantityInCart", () => {
