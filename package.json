@@ -18,11 +18,11 @@
     "type-check:watch": "npm run type-check -- --watch",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel modules --out-dir dist --extensions \".ts,.tsx\" --ignore \"**/__tests__/,**/__fixtures__/\"",
+    "build:js": "babel modules --out-dir dist --extensions \".ts,.tsx\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "tslint -c tslint.json \"modules/**/*.ts\" --exclude \"**/__tests__/,**/__fixtures__/\"",
-    "lint:fix": "tslint -c tslint.json --fix \"modules/**/*.ts\" --exclude \"**/__tests__/,**/__fixtures__/\""
+    "lint": "tslint -c tslint.json \"modules/**/*.ts\"",
+    "lint:fix": "tslint -c tslint.json --fix \"modules/**/*.ts\""
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
