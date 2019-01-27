@@ -24,7 +24,11 @@ describe("addToCart", () => {
     const nextCart = addToCart(cart, newItem);
 
     expect(nextCart.length).toBe(cart.length);
-    expect(nextCart[0].quantity).toBe(cart[0].quantity + quantityToAdd);
+    expect(nextCart[0]).toEqual({
+      ...cart[0],
+      quantity: cart[0].quantity + quantityToAdd,
+    });
+    expect(nextCart[1]).toEqual(cart[1]);
   });
   it("should add a new item if it does not already exist", () => {
     const cartItem1 = getCartItem({ id: 1 });
@@ -63,7 +67,11 @@ describe("removeFromCart", () => {
     const nextCart = removeFromCart(cart, newItem);
 
     expect(nextCart.length).toBe(cart.length);
-    expect(nextCart[0].quantity).toBe(cart[0].quantity - quantityToRemove);
+    expect(nextCart[0]).toEqual({
+      ...cart[0],
+      quantity: cart[0].quantity - quantityToRemove,
+    });
+    expect(nextCart[1]).toEqual(cart[1]);
   });
   it("should fully remove the item if remaining quantity would be <= 0", () => {
     const cartItem1 = getCartItem({ id: 1, quantity: 10 });
@@ -106,6 +114,8 @@ describe("setQuantityInCart", () => {
     const quantity = 5000;
 
     const nextCart = setQuantityInCart(cart, targetId, quantity);
+
+    expect(nextCart.length).toBe(cart.length);
     expect(nextCart[0]).toEqual({ ...cartItem1, quantity });
     expect(nextCart[1]).toEqual(cartItem2);
   });
@@ -159,6 +169,7 @@ describe("addNewItemToCart", () => {
     const nextCart = addNewItemToCart(cart, newItem);
 
     expect(nextCart.length).toBe(cart.length);
+    expect(nextCart[0]).toEqual(cart[0]);
     expect(nextCart[1].quantity).toEqual(cart[1].quantity + quantityToAdd);
   });
   it("should do nothing if the quantity of the item is < 0", () => {
