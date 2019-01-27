@@ -20,7 +20,9 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel modules --out-dir dist --extensions \".ts,.tsx\" --ignore \"**/__tests__/,**/__fixtures__/\"",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "tslint -c tslint.json \"modules/**/*.ts\" --exclude \"**/__tests__/,**/__fixtures__/\"",
+    "lint:fix": "tslint -c tslint.json --fix \"modules/**/*.ts\" --exclude \"**/__tests__/,**/__fixtures__/\""
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -31,6 +33,7 @@
     "jest": "^24.0.0",
     "prettier": "^1.16.1",
     "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
     "typescript": "^3.2.4"
   }
 }
