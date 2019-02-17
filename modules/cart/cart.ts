@@ -6,20 +6,23 @@ export interface IProduct {
 }
 
 export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
-  if (item.quantity <= 0) {
+  const validItem = item.quantity <= 0;
+  if (validItem) {
     return items;
   }
 
   const itemIndex = getItemIndexById(items, item.id);
+  const itemAlreadyExists = itemIndex >= 0;
 
-  if (itemIndex >= 0) {
+  if (itemAlreadyExists) {
     // Increment quantity
     const currentQuantity = items[itemIndex].quantity;
     const targetQuantity = currentQuantity + item.quantity;
     return changeQuantityInCart(items, item.id, targetQuantity);
-  } else {
-    return [...items, item];
   }
+
+  // Add new item
+  return [...items, item];
 }
 
 export function getItemIndexById(items: IProduct[], id: number): number {
