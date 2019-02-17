@@ -3,7 +3,6 @@ import {
   removeFromCart,
   setQuantityInCart,
   fullyRemoveItemFromCart,
-  addNewItemToCart,
   getItemIndexById,
   replaceQuantityInCart,
   getTotalPriceCart,
@@ -150,47 +149,6 @@ describe("setQuantityInCart", () => {
     const quantity = -1;
 
     const nextCart = setQuantityInCart(cart, cartItemId, quantity);
-    const expectedCart = cart;
-
-    expect(nextCart).toEqual(expectedCart);
-  });
-});
-
-describe("addNewItemToCart", () => {
-  it("should add the item to the cart", () => {
-    const cartItem1 = getCartItem({ id: 1 });
-    const cartItem2 = getCartItem({ id: 2 });
-    const cart = [cartItem1, cartItem2];
-
-    const newItem = getCartItem({ id: 3 });
-
-    const nextCart = addNewItemToCart(cart, newItem);
-    const expectedCart = [cartItem1, cartItem2, newItem];
-
-    expect(nextCart).toEqual(expectedCart);
-  });
-  it("should increase the quantity of the item if it already exists", () => {
-    const cartItem1 = getCartItem({ id: 1 });
-    const cartItem2 = getCartItem({ id: 2 });
-    const cart = [cartItem1, cartItem2];
-
-    const quantityToAdd = 10;
-    const newItem = getCartItem({ id: 2, quantity: quantityToAdd });
-
-    const nextCart = addNewItemToCart(cart, newItem);
-
-    expect(nextCart.length).toBe(cart.length);
-    expect(nextCart[0]).toEqual(cart[0]);
-    expect(nextCart[1].quantity).toEqual(cart[1].quantity + quantityToAdd);
-  });
-  it("should do nothing if the quantity of the item is < 0", () => {
-    const cartItem1 = getCartItem({ id: 1 });
-    const cartItem2 = getCartItem({ id: 2 });
-    const cart = [cartItem1, cartItem2];
-
-    const newItem = getCartItem({ id: 3, quantity: -1 });
-
-    const nextCart = addNewItemToCart(cart, newItem);
     const expectedCart = cart;
 
     expect(nextCart).toEqual(expectedCart);

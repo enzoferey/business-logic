@@ -18,7 +18,7 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
     const targetQuantity = currentQuantity + item.quantity;
     return replaceQuantityInCart(items, itemIndex, targetQuantity);
   } else {
-    return addNewItemToCart(items, item);
+    return [...items, item];
   }
 }
 
