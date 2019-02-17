@@ -26,22 +26,6 @@ export function getItemIndexById(items: IProduct[], id: number): number {
   return items.findIndex(item => item.id === id);
 }
 
-export function addNewItemToCart(
-  items: IProduct[],
-  item: IProduct
-): IProduct[] {
-  if (item.quantity <= 0) {
-    return items;
-  } else {
-    const itemIndex = getItemIndexById(items, item.id);
-    if (itemIndex >= 0) {
-      return addToCart(items, item);
-    }
-  }
-
-  return [...items, item];
-}
-
 export function removeFromCart(items: IProduct[], item: IProduct) {
   if (item.quantity <= 0) {
     return items;
