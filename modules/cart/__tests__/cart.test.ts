@@ -59,6 +59,7 @@ describe("-- interface --", () => {
       const cartItem1 = getCartItem({ id: 1 });
       const cartItem2 = getCartItem({ id: 2 });
       const cart = [cartItem1, cartItem2];
+
       const targetId = 1;
       const quantity = 5000;
 
@@ -72,6 +73,7 @@ describe("-- interface --", () => {
       const cartItem1 = getCartItem({ id: 1 });
       const cartItem2 = getCartItem({ id: 2 });
       const cart = [cartItem1, cartItem2];
+
       const targetId = 1;
       const quantity = 0;
 
@@ -84,6 +86,7 @@ describe("-- interface --", () => {
       const cartItem1 = getCartItem({ id: 1 });
       const cartItem2 = getCartItem({ id: 2 });
       const cart = [cartItem1, cartItem2];
+
       const cartItemId = 123;
       const quantity = -1;
 
@@ -189,8 +192,10 @@ describe("-- helpers --", () => {
     const cartItem3 = getCartItem({ id: 3 });
     const cart = [cartItem1, cartItem2, cartItem3];
 
-    let targetId = 1;
-    let itemIndex = getItemIndexById(cart, targetId);
+    let targetId, itemIndex;
+
+    targetId = 1;
+    itemIndex = getItemIndexById(cart, targetId);
     expect(itemIndex).toBe(0);
 
     targetId = 2;
