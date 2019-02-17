@@ -62,17 +62,17 @@ export function getTotalNumberItemsCart(items: IProduct[]): number {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
 
+export function getItemIndexById(items: IProduct[], id: number): number {
+  return items.findIndex(item => item.id === id);
+}
+
 export function replaceItemAtIndexInCart(
   items: IProduct[],
   index: number,
-  newItem: IProduct
+  item: IProduct
 ): IProduct[] {
   const cart = [...items];
-  cart[index] = newItem;
+  cart[index] = item;
 
   return cart;
-}
-
-export function getItemIndexById(items: IProduct[], id: number): number {
-  return items.findIndex(item => item.id === id);
 }
