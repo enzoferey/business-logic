@@ -25,32 +25,7 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
   return [...items, item];
 }
 
-export function getItemIndexById(items: IProduct[], id: number): number {
-  return items.findIndex(item => item.id === id);
-}
-
-export function removeFromCart(items: IProduct[], item: IProduct) {
-  if (item.quantity <= 0) {
-    return items;
-  }
-
-  const itemIndex = getItemIndexById(items, item.id);
-
-  if (itemIndex < 0) {
-    return items;
-  }
-
-  // Decrement quantity
-  const currentQuantity = items[itemIndex].quantity;
-  const targetQuantity = currentQuantity - item.quantity;
-
-  return changeQuantityInCart(items, item.id, targetQuantity);
-}
-
-export function fullyRemoveItemFromCart(
-  items: IProduct[],
-  id: number
-): IProduct[] {
+export function removeFromCart(items: IProduct[], id: number): IProduct[] {
   return items.filter(item => item.id !== id);
 }
 
@@ -62,7 +37,7 @@ export function changeQuantityInCart(
   if (quantity < 0) {
     return items;
   } else if (quantity === 0) {
-    return fullyRemoveItemFromCart(items, id);
+    return removeFromCart(items, id);
   }
 
   const index = getItemIndexById(items, id);
@@ -79,6 +54,14 @@ export function changeQuantityInCart(
   return replaceItemAtIndexInCart(items, index, newItem);
 }
 
+export function getTotalPriceCart(items: IProduct[]): number {
+  return items.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+export function getTotalNumberItemsCart(items: IProduct[]): number {
+  return items.reduce((count, item) => count + item.quantity, 0);
+}
+
 export function replaceItemAtIndexInCart(
   items: IProduct[],
   index: number,
@@ -90,10 +73,6 @@ export function replaceItemAtIndexInCart(
   return cart;
 }
 
-export function getTotalPriceCart(items: IProduct[]): number {
-  return items.reduce((total, item) => total + item.price * item.quantity, 0);
-}
-
-export function getTotalNumberItemsCart(items: IProduct[]): number {
-  return items.reduce((count, item) => count + item.quantity, 0);
+export function getItemIndexById(items: IProduct[], id: number): number {
+  return items.findIndex(item => item.id === id);
 }
