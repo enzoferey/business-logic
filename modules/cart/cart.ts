@@ -25,14 +25,17 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
   return [...items, item];
 }
 
-export function removeFromCart(items: IProduct[], id: number): IProduct[] {
+export function removeFromCart(
+  items: IProduct[],
+  id: IProduct["id"]
+): IProduct[] {
   return items.filter(item => item.id !== id);
 }
 
 export function changeQuantityInCart(
   items: IProduct[],
-  id: number,
-  quantity: number
+  id: IProduct["id"],
+  quantity: IProduct["quantity"]
 ): IProduct[] {
   if (quantity < 0) {
     return items;
@@ -62,7 +65,10 @@ export function getTotalNumberItemsCart(items: IProduct[]): number {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
 
-export function getItemIndexById(items: IProduct[], id: number): number {
+export function getItemIndexById(
+  items: IProduct[],
+  id: IProduct["id"]
+): number {
   return items.findIndex(item => item.id === id);
 }
 
