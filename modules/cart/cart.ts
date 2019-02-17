@@ -27,15 +27,15 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
 
 export function removeFromCart(
   items: IProduct[],
-  id: IProduct["id"]
+  id: IProduct["id"],
 ): IProduct[] {
-  return items.filter(item => item.id !== id);
+  return items.filter((item) => item.id !== id);
 }
 
 export function changeQuantityInCart(
   items: IProduct[],
   id: IProduct["id"],
-  quantity: IProduct["quantity"]
+  quantity: IProduct["quantity"],
 ): IProduct[] {
   if (quantity < 0) {
     return items;
@@ -67,15 +67,15 @@ export function getTotalNumberItemsCart(items: IProduct[]): number {
 
 export function getItemIndexById(
   items: IProduct[],
-  id: IProduct["id"]
+  id: IProduct["id"],
 ): number {
-  return items.findIndex(item => item.id === id);
+  return items.findIndex((item) => item.id === id);
 }
 
 export function replaceItemAtIndexInCart(
   items: IProduct[],
   index: number,
-  item: IProduct
+  item: IProduct,
 ): IProduct[] {
   const cart = [...items];
   cart[index] = item;

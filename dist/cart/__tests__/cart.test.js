@@ -1,4 +1,4 @@
-import { addToCart, removeFromCart, changeQuantityInCart, getItemIndexById, replaceItemAtIndexInCart, getTotalPriceCart, getTotalNumberItemsCart } from "../cart";
+import { addToCart, changeQuantityInCart, getItemIndexById, getTotalNumberItemsCart, getTotalPriceCart, removeFromCart, replaceItemAtIndexInCart } from "../cart";
 import { getCartItem } from "../__fixtures__/cart.fixtures";
 describe("-- interface --", () => {
   describe("addToCart", () => {
@@ -205,9 +205,8 @@ describe("-- helpers --", () => {
       id: 3
     });
     const cart = [cartItem1, cartItem2, cartItem3];
-    let targetId, itemIndex;
-    targetId = 1;
-    itemIndex = getItemIndexById(cart, targetId);
+    let targetId = 1;
+    let itemIndex = getItemIndexById(cart, targetId);
     expect(itemIndex).toBe(0);
     targetId = 2;
     itemIndex = getItemIndexById(cart, targetId);
