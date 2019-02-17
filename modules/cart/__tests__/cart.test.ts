@@ -4,7 +4,7 @@ import {
   setQuantityInCart,
   fullyRemoveItemFromCart,
   getItemIndexById,
-  replaceQuantityInCart,
+  changeQuantityInCart,
   getTotalPriceCart,
   getTotalNumberItemsCart,
 } from "../cart";
@@ -205,15 +205,15 @@ test("getItemIndexById", () => {
   expect(itemIndex).toBe(2);
 });
 
-test("replaceQuantityInCart", () => {
+test("changeQuantityInCart", () => {
   const cartItem1 = getCartItem({ id: 1 });
   const cartItem2 = getCartItem({ id: 2 });
   const cart = [cartItem1, cartItem2];
 
-  const targetIndex = 0;
+  const targetId = cartItem1.id;
   const targetQuantity = 5000;
 
-  const nextCart = replaceQuantityInCart(cart, targetIndex, targetQuantity);
+  const nextCart = changeQuantityInCart(cart, targetId, targetQuantity);
 
   expect(nextCart.length).toBe(cart.length);
   expect(nextCart[0]).toEqual({ ...cart[0], quantity: targetQuantity });

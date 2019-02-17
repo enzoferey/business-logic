@@ -16,7 +16,7 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
     // Increment quantity
     const currentQuantity = items[itemIndex].quantity;
     const targetQuantity = currentQuantity + item.quantity;
-    return replaceQuantityInCart(items, itemIndex, targetQuantity);
+    return changeQuantityInCart(items, item.id, targetQuantity);
   } else {
     return [...items, item];
   }
@@ -45,7 +45,7 @@ export function removeFromCart(items: IProduct[], item: IProduct) {
     return fullyRemoveItemFromCart(items, item.id);
   }
 
-  return replaceQuantityInCart(items, itemIndex, targetQuantity);
+  return changeQuantityInCart(items, item.id, targetQuantity);
 }
 
 export function fullyRemoveItemFromCart(
@@ -66,17 +66,17 @@ export function setQuantityInCart(
     return fullyRemoveItemFromCart(items, id);
   }
 
-  const itemIndex = getItemIndexById(items, id);
-
-  return replaceQuantityInCart(items, itemIndex, quantity);
+  return changeQuantityInCart(items, id, quantity);
 }
 
-export function replaceQuantityInCart(
+export function changeQuantityInCart(
   items: IProduct[],
-  index: number,
+  id: number,
   quantity: number
 ): IProduct[] {
+  const index = getItemIndexById(items, id);
   const currentItem = items[index];
+
   const newItem = {
     ...currentItem,
     quantity,
