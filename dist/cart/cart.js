@@ -1,11 +1,11 @@
 export function addToCart(items, item) {
-  const validItem = item.quantity <= 0;
+  const notValidItem = item.quantity <= 0;
 
-  if (validItem) {
+  if (notValidItem) {
     return items;
   }
 
-  const itemIndex = getItemIndexById(items, item.id);
+  const itemIndex = getCartItemIndexById(items, item.id);
   const itemAlreadyExists = itemIndex >= 0;
 
   if (itemAlreadyExists) {
@@ -13,10 +13,10 @@ export function addToCart(items, item) {
     const currentQuantity = items[itemIndex].quantity;
     const targetQuantity = currentQuantity + item.quantity;
     return changeQuantityInCart(items, item.id, targetQuantity);
-  } // Add new item
-
-
-  return [...items, item];
+  } else {
+    // Add new item
+    return [...items, item];
+  }
 }
 export function removeFromCart(items, id) {
   return items.filter(item => item.id !== id);
@@ -28,17 +28,19 @@ export function changeQuantityInCart(items, id, quantity) {
     return removeFromCart(items, id);
   }
 
-  const index = getItemIndexById(items, id);
+  const itemIndex = getCartItemIndexById(items, id);
+  const itemDoesNotExist = itemIndex < 0;
 
-  if (index < 0) {
+  if (itemDoesNotExist) {
     return items;
-  }
+  } // Change quantity
 
-  const currentItem = items[index];
+
+  const currentItem = items[itemIndex];
   const newItem = { ...currentItem,
     quantity
   };
-  return replaceItemAtIndexInCart(items, index, newItem);
+  return replaceCartItemAtIndex(items, itemIndex, newItem);
 }
 export function getTotalPriceCart(items) {
   return items.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -46,10 +48,10 @@ export function getTotalPriceCart(items) {
 export function getTotalNumberItemsCart(items) {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
-export function getItemIndexById(items, id) {
+export function getCartItemIndexById(items, id) {
   return items.findIndex(item => item.id === id);
 }
-export function replaceItemAtIndexInCart(items, index, item) {
+export function replaceCartItemAtIndex(items, index, item) {
   const cart = [...items];
   cart[index] = item;
   return cart;

@@ -1,11 +1,11 @@
 import {
   addToCart,
   changeQuantityInCart,
-  getItemIndexById,
+  getCartItemIndexById,
   getTotalNumberItemsCart,
   getTotalPriceCart,
   removeFromCart,
-  replaceItemAtIndexInCart,
+  replaceCartItemAtIndex,
 } from "../cart";
 
 import { getCartItem } from "../__fixtures__/cart.fixtures";
@@ -171,7 +171,7 @@ describe("-- interface --", () => {
 });
 
 describe("-- helpers --", () => {
-  test("replaceItemAtIndexInCart", () => {
+  test("replaceCartItemAtIndex", () => {
     const cartItem1 = getCartItem({ id: 1 });
     const cartItem2 = getCartItem({ id: 2 });
     const cart = [cartItem1, cartItem2];
@@ -179,29 +179,29 @@ describe("-- helpers --", () => {
     const targetIndex = 0;
     const newItem = getCartItem({ id: 3 });
 
-    const nextCart = replaceItemAtIndexInCart(cart, targetIndex, newItem);
+    const nextCart = replaceCartItemAtIndex(cart, targetIndex, newItem);
 
     expect(nextCart.length).toBe(cart.length);
     expect(nextCart[0]).toEqual(newItem);
     expect(nextCart[1]).toEqual(cart[1]);
   });
 
-  test("getItemIndexById", () => {
+  test("getCartItemIndexById", () => {
     const cartItem1 = getCartItem({ id: 1 });
     const cartItem2 = getCartItem({ id: 2 });
     const cartItem3 = getCartItem({ id: 3 });
     const cart = [cartItem1, cartItem2, cartItem3];
 
     let targetId = 1;
-    let itemIndex = getItemIndexById(cart, targetId);
+    let itemIndex = getCartItemIndexById(cart, targetId);
     expect(itemIndex).toBe(0);
 
     targetId = 2;
-    itemIndex = getItemIndexById(cart, targetId);
+    itemIndex = getCartItemIndexById(cart, targetId);
     expect(itemIndex).toBe(1);
 
     targetId = 3;
-    itemIndex = getItemIndexById(cart, targetId);
+    itemIndex = getCartItemIndexById(cart, targetId);
     expect(itemIndex).toBe(2);
   });
 });

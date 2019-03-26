@@ -38,10 +38,10 @@ Given an array of items, returns the total number of items in the cart.
 
 ### Helpers
 
-`getItemIndexById(items, id)`
+`getCartItemIndexById(items, id)`
 
 Given an array of items and an id to search for, returns the index of the item with the given id in the list. Returns -1 if not found.
 
-`replaceItemAtIndexInCart(items, index, item)`
+`replaceCartItemAtIndex(items, index, item)`
 
 Given an array of items, an index on that list, and a item, returns a mutation of list replacing the value of the item at index.

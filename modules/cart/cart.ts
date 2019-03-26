@@ -6,12 +6,12 @@ export interface IProduct {
 }
 
 export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
-  const validItem = item.quantity <= 0;
-  if (validItem) {
+  const notValidItem = item.quantity <= 0;
+  if (notValidItem) {
     return items;
   }
 
-  const itemIndex = getItemIndexById(items, item.id);
+  const itemIndex = getCartItemIndexById(items, item.id);
   const itemAlreadyExists = itemIndex >= 0;
 
   if (itemAlreadyExists) {
@@ -19,10 +19,10 @@ export function addToCart(items: IProduct[], item: IProduct): IProduct[] {
     const currentQuantity = items[itemIndex].quantity;
     const targetQuantity = currentQuantity + item.quantity;
     return changeQuantityInCart(items, item.id, targetQuantity);
+  } else {
+    // Add new item
+    return [...items, item];
   }
-
-  // Add new item
-  return [...items, item];
 }
 
 export function removeFromCart(
@@ -43,18 +43,21 @@ export function changeQuantityInCart(
     return removeFromCart(items, id);
   }
 
-  const index = getItemIndexById(items, id);
-  if (index < 0) {
+  const itemIndex = getCartItemIndexById(items, id);
+  const itemDoesNotExist = itemIndex < 0;
+
+  if (itemDoesNotExist) {
     return items;
   }
 
-  const currentItem = items[index];
+  // Change quantity
+  const currentItem = items[itemIndex];
   const newItem = {
     ...currentItem,
     quantity,
   };
 
-  return replaceItemAtIndexInCart(items, index, newItem);
+  return replaceCartItemAtIndex(items, itemIndex, newItem);
 }
 
 export function getTotalPriceCart(items: IProduct[]): number {
@@ -65,14 +68,14 @@ export function getTotalNumberItemsCart(items: IProduct[]): number {
   return items.reduce((count, item) => count + item.quantity, 0);
 }
 
-export function getItemIndexById(
+export function getCartItemIndexById(
   items: IProduct[],
   id: IProduct["id"],
 ): number {
   return items.findIndex((item) => item.id === id);
 }
 
-export function replaceItemAtIndexInCart(
+export function replaceCartItemAtIndex(
   items: IProduct[],
   index: number,
   item: IProduct,
